@@ -14,6 +14,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *tipAmountTextLabel;
 @property (weak, nonatomic) IBOutlet UILabel *totalAmountTextLabel;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *tipPercentageSegmentControl;
+@property (weak, nonatomic) IBOutlet UILabel *headCountTextLabel;
+@property (weak, nonatomic) IBOutlet UISlider *headCountSlider;
+@property (weak, nonatomic) IBOutlet UILabel *totalPerPersonTextLabel;
 @property (strong, nonatomic) NSArray *tipPercentageArray;
 
 - (void)onSettingsButton;
@@ -59,6 +62,7 @@
 
 -(void)calculateTipAndUpdateLabels {
     NSNumber * tipPercentageNumber = self.tipPercentageArray[[self.tipPercentageSegmentControl selectedSegmentIndex]];
+    NSInteger headCount = self.headCountSlider.value;
     
     double billAmount = self.billAmountTextField.text.doubleValue;
     double tipPercentage = tipPercentageNumber.doubleValue;
@@ -66,16 +70,23 @@
     // calculate tip
     double tipAmount = billAmount * tipPercentage;
     double totalAmount = tipAmount + billAmount;
+    double totalPerPerson = totalAmount/headCount;
     
     //update the labels in the view
     self.tipAmountTextLabel.text = [NSString stringWithFormat:@"$%.2f", tipAmount];
     self.totalAmountTextLabel.text = [NSString stringWithFormat:@"$%.2f", totalAmount];
+    self.totalPerPersonTextLabel.text = [NSString stringWithFormat:@"$%.2f", totalPerPerson];
     NSLog(@"%f  %f", tipAmount, totalAmount);
 }
 
 - (IBAction)didTapCalcaulateButton:(UIButton *)sender {
     NSLog(@"did tap calculate button");
     [self calculateTipAndUpdateLabels];
+}
+- (IBAction)changedHeadCount:(UISlider *)sender {
+    NSLog(@"value changed");
+    NSInteger headCount = self.headCountSlider.value;
+    self.headCountTextLabel.text = [NSString stringWithFormat:@"%lu", headCount];
 }
 
 - (void)onSettingsButton {
