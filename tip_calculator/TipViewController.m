@@ -25,42 +25,51 @@
 
 @implementation TipViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    
-    if (self) {
-        self.title = @"Tip Calculator";
-    }
-    self.title = @"Tip Calculator";
-    
-    return self;
-}
 
 - (void)viewDidLoad {
+    NSLog(@"view did load");
     [super viewDidLoad];
     
+    self.title = @"Tip Calculator";
      self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Settings" style:UIBarButtonItemStylePlain target:self action:@selector(onSettingsButton)];
-    // Do any additional setup after loading the view.
-    self.tipPercentageArray = @[@0.05, @0.10, @0.15, @0.20, @0.25];
     
-    while(self.tipPercentageSegmentControl.numberOfSegments > 0) {
-        [self.tipPercentageSegmentControl removeSegmentAtIndex:0 animated:NO];
-    }
-    for (int i = 0; i < self.tipPercentageArray.count; i++) {
-        NSNumber * numberInArray = self.tipPercentageArray[i];
-        NSString * numberString = [NSString stringWithFormat:@"%.0f%%", numberInArray.doubleValue * 100];
-        [self.tipPercentageSegmentControl insertSegmentWithTitle:numberString atIndex:i animated:NO];
-    }
-    [self.tipPercentageSegmentControl setSelectedSegmentIndex:0];
     self.billAmountTextField.text = @"";
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [self calculateTipAndUpdateLabels];
+}
+
+- (void)updateTipPercentageSegmentLabels {
+    NSInteger selectedIndex = [self.tipPercentageSegmentControl selectedSegmentIndex];
+    NSInteger activeIndex = selectedIndex < 0 ? 0 : selectedIndex;
+    while(self.tipPercentageSegmentControl.numberOfSegments > 0) {
+        [self.tipPercentageSegmentControl removeSegmentAtIndex:0 animated:NO];
+    }
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSInteger poorServiceTip = [defaults integerForKey:@"poorServiceTip"];
+    NSInteger fairServiceTip = [defaults integerForKey:@"fairServiceTip"];
+    NSInteger goodServiceTip = [defaults integerForKey:@"goodServiceTip"];
+    NSInteger greatServiceTip = [defaults integerForKey:@"greatServiceTip"];
+    NSInteger excellentServiceTip = [defaults integerForKey:@"excellentServiceTip"];
+    self.tipPercentageArray = @[@(poorServiceTip), @(fairServiceTip), @(goodServiceTip), @(greatServiceTip), @(excellentServiceTip)];
+    
+    // Set the segmented control button values
+    for (int i = 0; i < self.tipPercentageArray.count; i++) {
+        NSNumber * numberInArray = self.tipPercentageArray[i];
+        NSString * numberString = [NSString stringWithFormat:@"%.0f%%", numberInArray.doubleValue];
+        [self.tipPercentageSegmentControl insertSegmentWithTitle:numberString atIndex:i animated:NO];
+    }
+    [self.tipPercentageSegmentControl setSelectedSegmentIndex:activeIndex];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
 -(void)calculateTipAndUpdateLabels {
+    [self updateTipPercentageSegmentLabels];
     NSNumber * tipPercentageNumber = self.tipPercentageArray[[self.tipPercentageSegmentControl selectedSegmentIndex]];
     NSInteger headCount = self.headCountSlider.value;
     
@@ -68,25 +77,26 @@
     double tipPercentage = tipPercentageNumber.doubleValue;
     
     // calculate tip
-    double tipAmount = billAmount * tipPercentage;
+    double tipAmount = billAmount * tipPercentage/100;
     double totalAmount = tipAmount + billAmount;
     double totalPerPerson = totalAmount/headCount;
     
-    //update the labels in the view
     self.tipAmountTextLabel.text = [NSString stringWithFormat:@"$%.2f", tipAmount];
     self.totalAmountTextLabel.text = [NSString stringWithFormat:@"$%.2f", totalAmount];
     self.totalPerPersonTextLabel.text = [NSString stringWithFormat:@"$%.2f", totalPerPerson];
-    NSLog(@"%f  %f", tipAmount, totalAmount);
 }
-
-- (IBAction)didTapCalcaulateButton:(UIButton *)sender {
-    NSLog(@"did tap calculate button");
+- (IBAction)billAmountChanged:(UITextField *)sender {
     [self calculateTipAndUpdateLabels];
 }
+
 - (IBAction)changedHeadCount:(UISlider *)sender {
-    NSLog(@"value changed");
     NSInteger headCount = self.headCountSlider.value;
     self.headCountTextLabel.text = [NSString stringWithFormat:@"%lu", headCount];
+    [self calculateTipAndUpdateLabels];
+}
+
+- (IBAction)tipPercentageChanged:(UISegmentedControl *)sender {
+    [self calculateTipAndUpdateLabels];
 }
 
 - (void)onSettingsButton {
