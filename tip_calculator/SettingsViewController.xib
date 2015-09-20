@@ -56,24 +56,29 @@
                 </label>
                 <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="oJL-5g-4gp">
                     <rect key="frame" x="257" y="182" width="94" height="29"/>
+                    <color key="backgroundColor" red="0.18548242849999999" green="0.3640309343" blue="0.0069339225590000003" alpha="1" colorSpace="calibratedRGB"/>
                     <connections>
                         <action selector="steppersChanged" destination="-1" eventType="valueChanged" id="qmk-qW-Pac"/>
                     </connections>
                 </stepper>
                 <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="Kvt-PN-Gg6">
                     <rect key="frame" x="257" y="139" width="94" height="29"/>
+                    <color key="backgroundColor" red="0.18548242845117846" green="0.36403093434343436" blue="0.0069339225589225345" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <connections>
                         <action selector="steppersChanged" destination="-1" eventType="valueChanged" id="Ocn-sz-3aF"/>
                     </connections>
                 </stepper>
                 <stepper opaque="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="8M2-vj-c4d">
                     <rect key="frame" x="257" y="224" width="94" height="29"/>
+                    <color key="backgroundColor" red="0.18548242849999999" green="0.3640309343" blue="0.0069339225590000003" alpha="1" colorSpace="calibratedRGB"/>
                     <connections>
                         <action selector="steppersChanged" destination="-1" eventType="valueChanged" id="cVn-dt-fca"/>
                     </connections>
                 </stepper>
                 <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="jSm-VN-rNB">
                     <rect key="frame" x="257" y="267" width="94" height="29"/>
+                    <color key="backgroundColor" red="0.18548242849999999" green="0.3640309343" blue="0.0069339225590000003" alpha="1" colorSpace="calibratedRGB"/>
                     <connections>
                         <action selector="steppersChanged" destination="-1" eventType="valueChanged" id="3zu-gV-Teg"/>
                     </connections>
@@ -98,6 +103,7 @@
                 </label>
                 <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="fill" contentVerticalAlignment="bottom" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="TQK-1e-QbY">
                     <rect key="frame" x="257" y="97" width="94" height="29"/>
+                    <color key="backgroundColor" red="0.18548242849999999" green="0.3640309343" blue="0.0069339225590000003" alpha="1" colorSpace="calibratedRGB"/>
                     <connections>
                         <action selector="steppersChanged" destination="-1" eventType="valueChanged" id="ac6-L6-CH6"/>
                     </connections>
