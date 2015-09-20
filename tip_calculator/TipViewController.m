@@ -28,6 +28,7 @@
     if (self) {
         self.title = @"Tip Calculator";
     }
+    self.title = @"Tip Calculator";
     
     return self;
 }

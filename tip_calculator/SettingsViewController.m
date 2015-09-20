@@ -84,7 +84,4 @@
     [defaults setInteger:excellentServiceTip forKey:@"excellentServiceTip"];
     [defaults synchronize];
 }
-
-- (IBAction)greatStep:(UIStepper *)sender {
-}
 @end
